@@ -22,12 +22,12 @@ final class Version20210221205259 extends AbstractMigration
         $this->addSql("
                         INSERT INTO `Product` (`code`, `name`, `price`, `stock`, `ID`)
                         VALUES
-                            ('B5023','soda',1.9,5,1),
-                            ('A1024','chips',5.05,4,2),
-                            ('A1024','cheese sticks',5.35,5,3),
+                            ('B5023','soda',1.50,5,1),
+                            ('A1024','chips',1,4,2),
+                            ('A1024','cheese sticks',2.35,5,3),
                             ('C8792','Jelly beans',2.3,5,4),
                             ('G7603','Peanuts',1.3,6,5),
-                            ('T0291','Water',0.6,10,6),
+                            ('T0291','Water',0.65,10,6),
                             ('R5782','Cookies',3.6,8,7)"
         );
     }
