@@ -23,6 +23,11 @@ class Product
         return $this->$prop;
     }
 
+    public function __isset($prop) : bool
+    {
+        return isset($this->$prop);
+    }
+
     public function getId(): int
     {
         return $this->id;
