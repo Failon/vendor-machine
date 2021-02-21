@@ -27,5 +27,11 @@ services:
         resource: '../src/Controller/'
         tags: ['controller.service_arguments']
 
+    App\VendorMachine\:
+        resource: '../src/VendorMachine/*'
+        autowire: true
+        public: true
+        exclude: '../src/VendorMachine/Domain/Entity/'
+
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
