@@ -20,6 +20,8 @@
                 <option name="default">0</option>
             </options>
         </field>
-
+        <unique-constraints>
+            <unique-constraint columns="code" name="product_code_idx" />
+        </unique-constraints>
     </entity>
 </doctrine-mapping>
