@@ -1,0 +1,5 @@
+/logs
+.idea
+/symfony/vendor
+/symfony/bin
+/symfony/var
