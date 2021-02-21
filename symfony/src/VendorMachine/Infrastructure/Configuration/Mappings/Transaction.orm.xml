@@ -9,8 +9,8 @@
         <unique-constraints>
             <unique-constraint columns="coin_value" name="transaction_coin_value_idx" />
         </unique-constraints>
-        <many-to-one field="address" target-entity="Address">
-            <join-column name="address_id" referenced-column-name="id" />
+        <many-to-one field="product" target-entity="\App\VendorMachine\Domain\Entity\Product">
+            <join-column name="product_id" referenced-column-name="id" />
         </many-to-one>
     </entity>
 </doctrine-mapping>
