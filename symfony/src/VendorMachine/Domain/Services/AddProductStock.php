@@ -2,6 +2,8 @@
 
 namespace App\VendorMachine\Domain\Services;
 
+use App\VendorMachine\Domain\Entity\Product;
+use App\VendorMachine\Domain\Exception\ProductNotFoundException;
 use App\VendorMachine\Domain\Repository\ProductRepository;
 
 class AddProductStock
@@ -17,6 +19,7 @@ class AddProductStock
     {
         $this->assertStockIsPositive($stock);
         $product = $this->productRepository->findOneByCode($code);
+        $this->assertProductExists($product, $code);
         $product->setStock($product->getStock() + $stock);
         $this->productRepository->save($product);
     }
@@ -28,6 +31,17 @@ class AddProductStock
     {
         if ($stock <= 0) {
             throw new \UnexpectedValueException("stock to add must be positive");
+        }
+    }
+
+    /**
+     * @param Product|null $product
+     * @param string $code
+     */
+    private function assertProductExists(?Product $product, string $code): void
+    {
+        if (empty($product)) {
+            throw new ProductNotFoundException($code);
         }
     }
 }
