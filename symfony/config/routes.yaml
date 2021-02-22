@@ -11,3 +11,9 @@ return_coins:
 purchase_product:
     path: /product/purchase
     controller: App\VendorMachine\Infrastructure\Controller\VendorMachineController::purchaseProduct
+technical_service:
+    path: /service
+    controller: App\VendorMachine\Infrastructure\Controller\VendorMachineController:service
+product_update:
+    path: /service/product/update
+    controller: App\VendorMachine\Infrastructure\Controller\VendorMachineController:productStockUpdate

@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+{% block title %}Vendor Machine Service{% endblock %}
+{% block body %}
+    <div class="container">
+        {% include 'partials/messages.html.twig' %}
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ path('index') }}">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Service</li>
+            </ol>
+        </nav>
+        <h1>Service</h1>
+        <div class="row">
+            <div class="col-sm-6">
+                {% include 'partials/product_table.html.twig' with { 'products': products } %}
+            </div>
+            <div class="col-sm-6">
+                <form action="{{ path('product_update') }}">
+                    <div class="form-row align-items-center">
+                        <div class="col-auto">
+                            <select name="product" id="product" class="form-control">
+                                {% for product in products %}
+                                    <option value="{{ product.code }}">{{ product.name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="col-auto">
+                            <input type="number" name="stock" max="100" min="1" step="1" class="form-control input-lg" placeholder="stock"/>
+                        </div>
+                        <div class="col-auto">
+                            <button type="submit" class="btn btn-primary mb-2">Update</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

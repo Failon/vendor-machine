@@ -8,6 +8,7 @@ use App\VendorMachine\Application\GetTotalTransaction;
 use App\VendorMachine\Application\InsertCoinUseCase;
 use App\VendorMachine\Application\PurchaseProductUseCase;
 use App\VendorMachine\Application\ReturnCoinsUseCase;
+use App\VendorMachine\Application\UpdateProductStockUseCase;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -20,7 +21,8 @@ final class VendorMachineController extends AbstractController
         private GetCurrentProductUseCase $getCurrentProductUseCase,
         private InsertCoinUseCase $insertCoinUseCase,
         private ReturnCoinsUseCase $returnCoinsUseCase,
-        private PurchaseProductUseCase $purchaseProductUseCase
+        private PurchaseProductUseCase $purchaseProductUseCase,
+        private UpdateProductStockUseCase $updateProductStockUseCase
     )
     {}
 
@@ -79,5 +81,32 @@ final class VendorMachineController extends AbstractController
         }
 
         return $this->redirectToRoute('index');
+    }
+
+    public function service(Request $request): Response
+    {
+        $products = $this->getProductListUseCase->execute()->getData();
+
+        return $this->render('service.html.twig', [
+            'products' => $products
+        ]);
+    }
+
+    public function productStockUpdate(Request $request): Response
+    {
+        $productCode = $request->get('product');
+        $stock = $request->get('stock');
+        try {
+            $this->updateProductStockUseCase->execute(
+                new \App\VendorMachine\Application\Request\Request(
+                    (object)['product' => $productCode, 'stock' => $stock]
+                )
+            );
+            $this->addFlash('info', sprintf('Product %s updated with new $d units of stock', $productCode, $stock));
+        } catch (\Exception $e) {
+            $this->addFlash('danger', $e->getMessage());
+        }
+
+        return $this->redirectToRoute('technical_service');
     }
 }
