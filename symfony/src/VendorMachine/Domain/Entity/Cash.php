@@ -2,6 +2,8 @@
 
 namespace App\VendorMachine\Domain\Entity;
 
+use JetBrains\PhpStorm\Pure;
+
 class Cash
 {
     private int $id;
@@ -37,5 +39,13 @@ class Cash
     public function setAmount(int $amount): void
     {
         $this->amount = $amount;
+    }
+
+    public static function fromTransaction(Transaction $transaction): static
+    {
+        return new static(
+            $transaction->getCoin(),
+            $transaction->getAmount()
+        );
     }
 }

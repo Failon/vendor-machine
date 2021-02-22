@@ -38,4 +38,19 @@ final class TransactionDoctrineRepositoryImplementation extends ServiceEntityRep
         $queryBuilder = $this->getEntityManager()->createQueryBuilder();
         $queryBuilder->delete(Transaction::class)->getQuery()->execute();
     }
+
+    public function beginTransaction(): void
+    {
+        $this->getEntityManager()->beginTransaction();
+    }
+
+    public function commit(): void
+    {
+        $this->getEntityManager()->commit();
+    }
+
+    public function rollback(): void
+    {
+        $this->getEntityManager()->rollback();
+    }
 }

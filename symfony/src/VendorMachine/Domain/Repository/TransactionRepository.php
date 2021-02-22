@@ -16,4 +16,7 @@ interface TransactionRepository
     public function searchAll(): array;
     public function findOneByCoinAndProduct(Coin $coin, Product $product): ?Transaction;
     public function reset(): void;
+    public function beginTransaction(): void;
+    public function commit(): void;
+    public function rollback(): void;
 }

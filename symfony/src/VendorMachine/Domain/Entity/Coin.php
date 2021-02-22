@@ -13,7 +13,7 @@ class Coin
      */
     public function __construct(float $value)
     {
-        $this->assertValueIsPossitive($value);
+        $this->assertValueIsPositive($value);
         $this->assertValueIsInAcceptableCurrencyRange($value);
         $this->value = $value;
     }
@@ -22,7 +22,7 @@ class Coin
      * @param float $value
      * @throws \UnexpectedValueException
      */
-    private function assertValueIsPossitive(float $value): void
+    private function assertValueIsPositive(float $value): void
     {
         if ($value < 0) {
             throw new \UnexpectedValueException("Value must be positive");

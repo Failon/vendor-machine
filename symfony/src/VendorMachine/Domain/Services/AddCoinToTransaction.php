@@ -27,6 +27,9 @@ class AddCoinToTransaction
     {
         $coin = new Coin($coinValue);
         $product = $this->productRepository->findOneByCode($productCode);
+        if ($product->getStock() <= 0) {
+            throw new \DomainException(sprintf("There is no stock for the product '%s'", $product->getName()));
+        }
         $transaction = $this->transactionRepository->findOneByCoinAndProduct($coin, $product);
         if (empty($transaction)) {
             $transaction = new Transaction($coin, 0, $product);
