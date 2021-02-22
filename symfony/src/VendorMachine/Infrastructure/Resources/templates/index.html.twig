@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+{% block title %}Vendor Machine{% endblock %}
+{% block body %}
+    <div class="container">
+        <h1>Vendor Machine</h1>
+        <div class="row">
+            <div class="col-sm-6">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Code</th>
+                        <th>Name</th>
+                        <th>Price</th>
+                        <th>Stock</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for product in products %}
+                        <tr>
+                            <td>{{ product.code }}</td>
+                            <td>{{ product.name }}</td>
+                            <td>{{  "%.2f"|format(product.price) }}</td>
+                            <td>{{ product.stock }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -31,7 +31,11 @@ services:
         resource: '../src/VendorMachine/*'
         autowire: true
         public: true
-        exclude: '../src/VendorMachine/Domain/Entity/'
+        exclude:
+            - '../src/VendorMachine/Domain/Entity/'
+            - '../src/VendorMachine/Domain/Exception/'
+            - '../src/VendorMachine/Application/Request'
+            - '../src/VendorMachine/Application/Response'
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
