@@ -9,5 +9,5 @@ interface CashRepository
 {
     public function save(Cash $cash): void;
     public function searchAll(): array;
-    public function findByCoin(Coin $coin): array;
+    public function findOneByCoin(Coin $coin): Cash;
 }

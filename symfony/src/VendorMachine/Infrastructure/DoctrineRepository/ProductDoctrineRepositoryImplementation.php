@@ -24,4 +24,9 @@ final class ProductDoctrineRepositoryImplementation extends ServiceEntityReposit
     {
         return $this->findAll();
     }
+
+    public function findOneByCode(string $code): ?Product
+    {
+        return $this->findOneBy(['code' => $code]);
+    }
 }

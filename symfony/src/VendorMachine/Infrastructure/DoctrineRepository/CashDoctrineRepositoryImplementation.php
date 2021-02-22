@@ -8,7 +8,7 @@ use App\VendorMachine\Domain\Repository\CashRepository;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
-class CashDoctrineRepositoryImplementation extends ServiceEntityRepository implements CashRepository
+final class CashDoctrineRepositoryImplementation extends ServiceEntityRepository implements CashRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
@@ -26,8 +26,8 @@ class CashDoctrineRepositoryImplementation extends ServiceEntityRepository imple
         return $this->findAll();
     }
 
-    public function findByCoin(Coin $coin): array
+    public function findOneByCoin(Coin $coin): Cash
     {
-        return $this->findBy(['coin.value' => $coin->getValue()]);
+        return $this->findOneBy(['coin.value' => $coin->getValue()]);
     }
 }

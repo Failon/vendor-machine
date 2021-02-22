@@ -3,31 +3,27 @@
 namespace App\Controller;
 
 use App\VendorMachine\Domain\Entity\Coin;
-use App\VendorMachine\Domain\Repository\CashRepository;
-use App\VendorMachine\Domain\Repository\ProductRepository;
+use App\VendorMachine\Domain\Services\AddCoinToTransaction;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 final class VendorMachineController extends AbstractController
 {
-    private ProductRepository $productRepository;
-    private CashRepository $cashRepository;
+    private AddCoinToTransaction $addCoinToTransaction;
 
-    public function __construct(ProductRepository $productRepository, CashRepository $cashRepository)
+    public function __construct(AddCoinToTransaction $addCoinToTransaction)
     {
-        $this->productRepository = $productRepository;
-        $this->cashRepository = $cashRepository;
+        $this->addCoinToTransaction = $addCoinToTransaction;
     }
 
     public function index(Request $request): Response
     {
-        $coin = new Coin(0.25);
-        $cash = $this->cashRepository->findByCoin($coin);
-        dump($cash); die;
+        $coinValue = 0.25;
+        $productCode = 'R5782';
+        $this->addCoinToTransaction->add($coinValue, $productCode);
 
-        $products = $this->productRepository->searchAll();
-        $text = implode(", ", array_column($products, 'name'));
-        return new Response($text);
+
+        return new Response("test");
     }
 }

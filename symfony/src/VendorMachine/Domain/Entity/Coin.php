@@ -7,6 +7,10 @@ class Coin
     private const CURRENCY_TYPES = [0.05, 0.10, 0.25, 1.0];
     private float $value;
 
+    /**
+     * @param float $value
+     * @throws \UnexpectedValueException
+     */
     public function __construct(float $value)
     {
         $this->assertValueIsPossitive($value);
@@ -16,6 +20,7 @@ class Coin
 
     /**
      * @param float $value
+     * @throws \UnexpectedValueException
      */
     private function assertValueIsPossitive(float $value): void
     {
@@ -26,6 +31,7 @@ class Coin
 
     /**
      * @param float $value
+     * @throws \UnexpectedValueException
      */
     private function assertValueIsInAcceptableCurrencyRange(float $value): void
     {
