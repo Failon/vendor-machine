@@ -23,7 +23,7 @@ final class CashDoctrineRepositoryImplementation extends ServiceEntityRepository
 
     public function searchAll(): array
     {
-        return $this->findAll();
+        return $this->findBy([], ['coin.value' => 'DESC']);
     }
 
     public function findOneByCoin(Coin $coin): Cash

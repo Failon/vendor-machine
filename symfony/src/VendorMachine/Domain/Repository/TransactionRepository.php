@@ -9,6 +9,10 @@ use App\VendorMachine\Domain\Entity\Transaction;
 interface TransactionRepository
 {
     public function save(Transaction $transaction): void;
+
+    /**
+     * @return Transaction[]
+     */
     public function searchAll(): array;
     public function findOneByCoinAndProduct(Coin $coin, Product $product): ?Transaction;
     public function reset(): void;
