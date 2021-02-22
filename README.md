@@ -38,3 +38,5 @@ $ php bin/console doctrine:schema:update --force
 $ php bin/console doctrine:migrations:migrate
 ```
 You are done, you can visit your Symfony application on the following URL: `http://symfony.localhost`
+
+Note: When you review the code, be sure to set php version language to 8.0+ in your IDE or editor
