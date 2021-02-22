@@ -22,10 +22,10 @@ final class Version20210221223257 extends AbstractMigration
         $this->addSql("
             INSERT INTO `cash` (`amount`, `ID`, `coin_value`)
             VALUES
-                (5,1,0.05),
-                (5,2,0.1),
-                (5,3,0.25),
-                (5,4,1)"
+                (50,1,0.05),
+                (50,2,0.1),
+                (50,3,0.25),
+                (50,4,1)"
         );
     }
 

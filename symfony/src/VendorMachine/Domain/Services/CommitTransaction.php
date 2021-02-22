@@ -35,17 +35,10 @@ class CommitTransaction
         $this->transactionRepository->beginTransaction();
         try {
             foreach ($transactions as $transaction) {
-                $cash = $this->cashRepository->findOneByCoin($transaction->getCoin());
-                if (!empty ($cash)) {
-                    $cash->setAmount($cash->getAmount() + $transaction->getAmount());
-                } else {
-                    $cash = Cash::fromTransaction($transaction);
-                }
-                $this->cashRepository->save($cash);
+                $this->generateCashFromTransaction($transaction);
             }
-            $product = reset($transactions)->getProduct();
-            $product->setStock($product->getStock() - 1);
-            $this->productRepository->save($product);
+            $this->subtractProductStock($transactions);
+            $this->resetTransaction->reset();
             $this->transactionRepository->commit();
         } catch (\Exception) {
             $this->transactionRepository->rollback();
@@ -67,5 +60,29 @@ class CommitTransaction
         if (reset($transactions)->getProduct()->getStock() <= 0) {
             throw new \DomainException("There is no stock for the purchased product");
         }
+    }
+
+    /**
+     * @param Transaction $transaction
+     */
+    private function generateCashFromTransaction(Transaction $transaction): void
+    {
+        $cash = $this->cashRepository->findOneByCoin($transaction->getCoin());
+        if (!empty ($cash)) {
+            $cash->setAmount($cash->getAmount() + $transaction->getAmount());
+        } else {
+            $cash = Cash::fromTransaction($transaction);
+        }
+        $this->cashRepository->save($cash);
+    }
+
+    /**
+     * @param Transaction[] $transactions
+     */
+    private function subtractProductStock(array $transactions): void
+    {
+        $product = reset($transactions)->getProduct();
+        $product->setStock($product->getStock() - 1);
+        $this->productRepository->save($product);
     }
 }
