@@ -6,7 +6,7 @@ use App\VendorMachine\Application\GetCurrentProductUseCase;
 use App\VendorMachine\Application\GetProductListUseCase;
 use App\VendorMachine\Application\GetTotalTransaction;
 use App\VendorMachine\Application\InsertCoinUseCase;
-use App\VendorMachine\Domain\Entity\Coin;
+use App\VendorMachine\Application\ReturnCoinsUseCase;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,7 +17,8 @@ final class VendorMachineController extends AbstractController
         private GetProductListUseCase $getProductListUseCase,
         private GetTotalTransaction $getTotalTransaction,
         private GetCurrentProductUseCase $getCurrentProductUseCase,
-        private InsertCoinUseCase $insertCoinUseCase
+        private InsertCoinUseCase $insertCoinUseCase,
+        private ReturnCoinsUseCase $returnCoinsUseCase
     )
     {}
 
@@ -46,6 +47,14 @@ final class VendorMachineController extends AbstractController
         } catch (\Exception $e) {
             $this->addFlash('danger', $e->getMessage());
         }
+
+        return $this->redirectToRoute('index');
+    }
+
+    public function returnCoins(Request $request): Response
+    {
+        $totalReturned = $this->returnCoinsUseCase->execute()->getData();
+        $this->addFlash('info', sprintf("%.2f amount returned", $totalReturned));
 
         return $this->redirectToRoute('index');
     }

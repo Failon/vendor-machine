@@ -5,3 +5,6 @@ insert_coin:
     path: /coin/insert
     controller: App\VendorMachine\Infrastructure\Controller\VendorMachineController::insertCoin
     methods: POST
+return_coins:
+    path: /coin/return
+    controller: App\VendorMachine\Infrastructure\Controller\VendorMachineController::returnCoins

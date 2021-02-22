@@ -46,14 +46,15 @@
                             <div class="form-row">
                                 <div class="form-group mb-2">
                                     <label for="insertedCoins" class="sr-only">Inserted Coins</label>
-                                    <input type="text" readonly class="form-control-plaintext" id="insertedCoins" value="Total: {{ totalInserted }}">
+                                    <input type="text" readonly class="form-control-plaintext" id="insertedCoins" value="Total: {{ "%.2f"|format(totalInserted) }}">
                                 </div>
                             </div>
                             <div class="form-row align-items-center mb-2">
                                 <div class="col-auto">
                                     <label for="product" class="sr-only">Product Selection</label>
                                     {% if selectedProduct is not empty %}
-                                        <input type="text" name="product" readonly value="{{ selectedProduct.name }}">
+                                        <input type="text" name="product_name" readonly value="{{ selectedProduct.name }}">
+                                        <input type="hidden" name="product" readonly value="{{ selectedProduct.code }}">
                                     {% else %}
                                         <select name="product" id="product" class="form-control">
                                             {% for product in products %}
@@ -66,16 +67,23 @@
                                     <label for="coin" class="sr-only">Coins</label>
                                     <input type="number" max="100" min="0.05" step="0.05" class="form-control" id="coin" name="coin" placeholder="coins..">
                                 </div>
+                                <div class="col-auto">
+                                    <button type="submit" class="btn btn-primary mb-2">Insert Coin</button>
+                                </div>
                             </div>
-                            <button type="submit" class="btn btn-primary mb-2">Insert Coin</button>
                         </form>
                     </div>
                 </div>
                 {% if selectedProduct is not empty %}
                     <div class="row">
-                        <div class="col-sm-12">
+                        <div class="col-sm-6">
                             <form action="#" class="form-inline">
                                 <button type="submit" class="btn btn-primary mb-2">Purchase</button>
+                            </form>
+                        </div>
+                        <div class="col-sm-6">
+                            <form action="{{path('return_coins')}}" class="form-inline">
+                                <button type="submit" class="btn btn-danger mb-2">Return Coins</button>
                             </form>
                         </div>
                     </div>
