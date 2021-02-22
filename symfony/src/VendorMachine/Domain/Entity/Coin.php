@@ -42,5 +42,9 @@ class Coin
         }
     }
 
+    public function getValue(): float
+    {
+        return $this->value;
+    }
 
 }
