@@ -32,4 +32,10 @@ final class TransactionDoctrineRepositoryImplementation extends ServiceEntityRep
     {
         return $this->findOneBy(['coin.value' => $coin->getValue(), 'product' => $product]);
     }
+
+    public function reset(): void
+    {
+        $queryBuilder = $this->getEntityManager()->createQueryBuilder();
+        $queryBuilder->delete(Transaction::class)->getQuery()->execute();
+    }
 }

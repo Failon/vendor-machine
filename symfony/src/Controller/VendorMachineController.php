@@ -2,27 +2,24 @@
 
 namespace App\Controller;
 
-use App\VendorMachine\Domain\Entity\Coin;
-use App\VendorMachine\Domain\Services\AddCoinToTransaction;
+use App\VendorMachine\Domain\Services\ResetTransaction;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 final class VendorMachineController extends AbstractController
 {
-    private AddCoinToTransaction $addCoinToTransaction;
+    private ResetTransaction $resetTransation;
 
-    public function __construct(AddCoinToTransaction $addCoinToTransaction)
+    public function __construct(ResetTransaction $resetTransation)
     {
-        $this->addCoinToTransaction = $addCoinToTransaction;
+        $this->resetTransation = $resetTransation;
     }
+
 
     public function index(Request $request): Response
     {
-        $coinValue = 0.25;
-        $productCode = 'R5782';
-        $this->addCoinToTransaction->add($coinValue, $productCode);
-
+        $this->resetTransation->reset();
 
         return new Response("test");
     }

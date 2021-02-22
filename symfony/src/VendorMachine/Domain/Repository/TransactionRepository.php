@@ -11,4 +11,5 @@ interface TransactionRepository
     public function save(Transaction $transaction): void;
     public function searchAll(): array;
     public function findOneByCoinAndProduct(Coin $coin, Product $product): ?Transaction;
+    public function reset(): void;
 }
