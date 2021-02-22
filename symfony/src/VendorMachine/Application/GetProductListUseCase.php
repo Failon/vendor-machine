@@ -12,7 +12,7 @@ class GetProductListUseCase extends UseCase
     {
     }
 
-    public function doExecute(Request $request): Response
+    public function doExecute(?Request $request = null): Response
     {
         $products = [];
         foreach ($this->productRepository->searchAll() as $product) {

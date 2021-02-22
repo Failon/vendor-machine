@@ -7,9 +7,9 @@ use App\VendorMachine\Application\Response\Response;
 
 abstract class UseCase
 {
-    abstract public function doExecute(Request $request): Response;
+    abstract public function doExecute(?Request $request = null): Response;
 
-    public function execute(Request $request): Response
+    public function execute(?Request $request = null): Response
     {
         return $this->doExecute($request);
     }

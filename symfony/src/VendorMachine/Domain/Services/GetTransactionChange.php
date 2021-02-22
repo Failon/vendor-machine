@@ -23,7 +23,7 @@ class GetTransactionChange
     {
         $currentTransactions = $this->transactionRepository->searchAll();
         if (empty($currentTransactions)) {
-            Throw new \UnderflowException();
+            throw new \UnderflowException();
         }
         $labelTransaction = reset($currentTransactions);
         $productPrice = $labelTransaction->getProduct()->getPrice();
