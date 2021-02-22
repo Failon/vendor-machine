@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\VendorMachine\Infrastructure\Controller;
 
 use App\VendorMachine\Domain\Services\ResetTransaction;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
