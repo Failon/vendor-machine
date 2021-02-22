@@ -2,6 +2,16 @@
 {% block title %}Vendor Machine{% endblock %}
 {% block body %}
     <div class="container">
+        {% for label, messages in app.flashes %}
+            {% for message in messages %}
+                <div class="alert alert-{{ label }} alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            {% endfor %}
+        {% endfor %}
         <h1>Vendor Machine</h1>
         <div class="row">
             <div class="col-sm-6">
@@ -29,34 +39,47 @@
             <div class="col-sm-6">
                 <div class="row">
                     <div class="col-sm-12">
-                        <form action="#" class="form-inline">
-                            <div class="form-group mb-2">
-                                <label for="insertedCoins" class="sr-only">Inserted Coins</label>
-                                <input type="text" readonly class="form-control-plaintext" id="insertedCoins" value="Total: {{ totalInserted }}">
+                        <div class="alert alert-info" role="alert">
+                            Remember only 0.05, 0.10, 0.25 and 1 coins are accepted
+                        </div>
+                        <form method="post" action="{{ path('insert_coin') }}">
+                            <div class="form-row">
+                                <div class="form-group mb-2">
+                                    <label for="insertedCoins" class="sr-only">Inserted Coins</label>
+                                    <input type="text" readonly class="form-control-plaintext" id="insertedCoins" value="Total: {{ totalInserted }}">
+                                </div>
                             </div>
-                            <div class="form-group mx-sm-3 mb-2">
-                                <label for="coins" class="sr-only">Coins</label>
-                                <input type="number" max="100" min="0.05" step="0.05" class="form-control" id="coins" placeholder="coins..">
+                            <div class="form-row align-items-center mb-2">
+                                <div class="col-auto">
+                                    <label for="product" class="sr-only">Product Selection</label>
+                                    {% if selectedProduct is not empty %}
+                                        <input type="text" name="product" readonly value="{{ selectedProduct.name }}">
+                                    {% else %}
+                                        <select name="product" id="product" class="form-control">
+                                            {% for product in products %}
+                                                <option value="{{ product.code }}">{{ product.name }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    {% endif %}
+                                </div>
+                                <div class="col-auto">
+                                    <label for="coin" class="sr-only">Coins</label>
+                                    <input type="number" max="100" min="0.05" step="0.05" class="form-control" id="coin" name="coin" placeholder="coins..">
+                                </div>
                             </div>
                             <button type="submit" class="btn btn-primary mb-2">Insert Coin</button>
                         </form>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-sm-12">
-                        <form action="#" class="form-inline">
-                            <div class="form-group mb-2">
-                                <label for="product" class="sr-only">Product Selection</label>
-                                <select name="product" id="product" class="form-control">
-                                    {% for product in products %}
-                                        <option value="{{ product.code }}">{{ product.name }}</option>
-                                    {% endfor %}
-                                </select>
-                            </div>
-                            <button type="submit" class="btn btn-primary mx-sm-3 mb-2">Purchase</button>
-                        </form>
+                {% if selectedProduct is not empty %}
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <form action="#" class="form-inline">
+                                <button type="submit" class="btn btn-primary mb-2">Purchase</button>
+                            </form>
+                        </div>
                     </div>
-                </div>
+                {% endif %}
             </div>
         </div>
     </div>

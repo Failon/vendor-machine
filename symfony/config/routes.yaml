@@ -1,3 +1,7 @@
 index:
     path: /
     controller: App\VendorMachine\Infrastructure\Controller\VendorMachineController::index
+insert_coin:
+    path: /coin/insert
+    controller: App\VendorMachine\Infrastructure\Controller\VendorMachineController::insertCoin
+    methods: POST

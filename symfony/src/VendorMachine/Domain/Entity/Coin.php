@@ -38,7 +38,7 @@ class Coin
         if (!in_array($value, self::CURRENCY_TYPES)) {
             throw new \UnexpectedValueException(
                 sprintf(
-                    "Value must match one of the following values: %s",
+                    "Coin value must match one of the following values: %s",
                     implode(
                         ", ",
                         array_map(fn($currency) => sprintf('%.2f', $currency), self::CURRENCY_TYPES)
