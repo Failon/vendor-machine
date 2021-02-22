@@ -12,7 +12,7 @@ class GetCurrentProductUseCase extends UseCase
     {
     }
 
-    public function doExecute(?Request $request = null): Response
+    protected function doExecute(?Request $request = null): Response
     {
         $transactions = $this->transactionRepository->searchAll();
         if (empty($transactions)) {

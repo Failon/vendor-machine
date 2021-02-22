@@ -13,7 +13,7 @@ class InsertCoinUseCase extends UseCase
     {
     }
 
-    public function doExecute(?Request $request = null): Response
+    protected function doExecute(?Request $request = null): Response
     {
         $coin = $request->getParameters()->coin;
         $product = $request->getParameters()->product;

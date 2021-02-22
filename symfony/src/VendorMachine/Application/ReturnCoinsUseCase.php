@@ -16,7 +16,7 @@ class ReturnCoinsUseCase extends UseCase
     {
     }
 
-    public function doExecute(?Request $request = null): Response
+    protected function doExecute(?Request $request = null): Response
     {
         $total = $this->getTotalTransaction->execute();
         $this->resetTransaction->reset();

@@ -35,20 +35,21 @@ class GetTransactionChange
         foreach ($cash as $coinTypeCash) {
             if ($coinTypeCash->getAmount() > 0) {
                 $coinValue = $coinTypeCash->getCoin()->getValue();
-                $numberOfCoins = floor($remainingChange / $coinValue);
+                $numberOfCoins = floor(round($remainingChange, 2) / round($coinValue, 2));
                 if ($numberOfCoins > 0) {
-                    if ($numberOfCoins < $coinTypeCash->getAmount()) {
+                    if ($coinTypeCash->getAmount() < $numberOfCoins) {
                         $numberOfCoins = $coinTypeCash->getAmount();
                     }
-                    $changeInCoins[$coinValue] = $numberOfCoins;
-                    $remainingChange = $remainingChange - ($numberOfCoins * $coinValue);
+                    $changeInCoins[(string)round($coinValue, 2)] = $numberOfCoins;
+                    $totalCoin = $numberOfCoins * $coinValue;
+                    $remainingChange = round($remainingChange, 2) - round($totalCoin, 2);
                 }
                 if ($remainingChange === 0) {
                     break;
                 }
             }
         }
-        if ($remainingChange !== 0) {
+        if ($remainingChange != 0) {
             throw new \DomainException("No change available");
         }
 

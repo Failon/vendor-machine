@@ -8,3 +8,6 @@ insert_coin:
 return_coins:
     path: /coin/return
     controller: App\VendorMachine\Infrastructure\Controller\VendorMachineController::returnCoins
+purchase_product:
+    path: /product/purchase
+    controller: App\VendorMachine\Infrastructure\Controller\VendorMachineController::purchaseProduct

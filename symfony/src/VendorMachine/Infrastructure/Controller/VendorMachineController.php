@@ -6,6 +6,7 @@ use App\VendorMachine\Application\GetCurrentProductUseCase;
 use App\VendorMachine\Application\GetProductListUseCase;
 use App\VendorMachine\Application\GetTotalTransaction;
 use App\VendorMachine\Application\InsertCoinUseCase;
+use App\VendorMachine\Application\PurchaseProductUseCase;
 use App\VendorMachine\Application\ReturnCoinsUseCase;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,7 +19,8 @@ final class VendorMachineController extends AbstractController
         private GetTotalTransaction $getTotalTransaction,
         private GetCurrentProductUseCase $getCurrentProductUseCase,
         private InsertCoinUseCase $insertCoinUseCase,
-        private ReturnCoinsUseCase $returnCoinsUseCase
+        private ReturnCoinsUseCase $returnCoinsUseCase,
+        private PurchaseProductUseCase $purchaseProductUseCase
     )
     {}
 
@@ -55,6 +57,26 @@ final class VendorMachineController extends AbstractController
     {
         $totalReturned = $this->returnCoinsUseCase->execute()->getData();
         $this->addFlash('info', sprintf("%.2f amount returned", $totalReturned));
+
+        return $this->redirectToRoute('index');
+    }
+
+    public function purchaseProduct(Request $request): Response
+    {
+        try {
+            $response = $this->purchaseProductUseCase->execute();
+            $change = $response->getData();
+            $flash = 'Product Purchased. Change: ';
+            foreach ($change as $coinValue => $amount) {
+                $flash .= sprintf('%d x %s coins ', $amount, $coinValue);
+            }
+            if (empty($change)) {
+                $flash = 'Product Purchased';
+            }
+            $this->addFlash('success', $flash);
+        } catch (\Exception $e) {
+            $this->addFlash('danger', $e->getMessage());
+        }
 
         return $this->redirectToRoute('index');
     }

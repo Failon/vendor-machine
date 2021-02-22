@@ -10,7 +10,7 @@ class GetTotalTransaction extends UseCase
 {
     public function __construct(private TransactionRepository $transactionRepository){}
 
-    public function doExecute(?Request $request = null): Response
+    protected function doExecute(?Request $request = null): Response
     {
         $currentTransactions = $this->transactionRepository->searchAll();
         $totalTransaction = 0;
